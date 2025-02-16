@@ -1,11 +1,8 @@
 "use client";
 import Image from "next/image";
-import { Navigation } from "../components/GlobalNavBar";
-import { signIn, signOut, useSession } from "next-auth/react";
-
-
-
+import React, { useState } from "react";
 export default function Home() {
+
   const products = [
     { id: 1, name: "Product 1", price: 100, image: "/images/1.jpg" },
     { id: 2, name: "Product 2", price: 200, image: "/images/1.jpg" },
@@ -15,9 +12,27 @@ export default function Home() {
     { id: 6, name: "Product 6", price: 600, image: "/images/1.jpg" },
   ];
 
+  const handleAddToCart = (product) => {
+    try {
+      let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      let item = cart.find(item => item.id === product.id);
+      
+      if (item) {
+        item.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+      
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Product added to cart");
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navigation />
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-8 text-gray-800">Our Menu</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -43,7 +58,7 @@ export default function Home() {
                 </p>
                 <button 
                   className="mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors"
-                  onClick={() => signIn("keycloak", { callbackUrl: "/redirect" })}
+                  onClick={() => handleAddToCart(product)}
                 >
                   Add to Cart
                 </button>
