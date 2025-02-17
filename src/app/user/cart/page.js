@@ -26,7 +26,6 @@ export default function CartPage() {
     setTotal(sum);
   };
 
-  // Handle quantity updates
   const updateQuantity = (productId, change) => {
     const updatedCart = cartItems.map(item => {
       if (item.id === productId) {

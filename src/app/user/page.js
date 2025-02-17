@@ -1,7 +1,36 @@
 "use client";
+import axios from "axios";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { useSession } from "next-auth/react";
+
 export default function Home() {
+  const { data: session } = useSession();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://fakestoreapi.com/products");
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
+  // const [products, setProducts] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchData = () => {
+  //     axios.get("https://fakestoreapi.com/products")
+  //       .then(response => {
+  //         setProducts(response.data);
+  //       })
+  //       .catch(error => {
+  //         console.error('Error fetching data:', error);
+  //       });
+  //   };
+  //   fetchData();
+  // }, []);
 
   const products = [
     { id: 1, name: "Product 1", price: 100, image: "/images/1.jpg" },
@@ -11,6 +40,8 @@ export default function Home() {
     { id: 5, name: "Product 5", price: 500, image: "/images/1.jpg" },
     { id: 6, name: "Product 6", price: 600, image: "/images/1.jpg" },
   ];
+
+  
 
   const handleAddToCart = (product) => {
     try {
@@ -34,8 +65,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-100">
       <main className="container mx-auto px-4 py-8">
+
         <h1 className="text-3xl font-bold mb-8 text-gray-800">Our Menu</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="  grid grid-cols-4  gap-6">
           {products.map((product) => (
             <div 
               key={product.id} 

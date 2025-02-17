@@ -51,12 +51,6 @@ export function Navigation() {
               Menu
             </Link>
 
-            <Link
-              href="/user/cart"
-              className="text-gray-600 hover:text-gray-800 transition-colors"
-            >
-              Cart
-            </Link>
             {session ? (
               <div className="text-gray-600 hover:text-gray-800 transition-colors">
                 <p>Welcome, {session?.user?.name}</p>

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-export function Navigation() {
+export default function Navigation() {
   const { data: session } = useSession();
 
   const handleLogout = async () => {

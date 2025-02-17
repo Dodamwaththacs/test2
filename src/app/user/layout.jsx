@@ -1,4 +1,4 @@
-import {Navigation} from "@/components/UserNavBar";
+import Navigation  from "../../components/UserNavBar";
 
 export default function UserLayout({ children }) {
   return (

@@ -15,15 +15,10 @@ export default function Home() {
     useEffect(() => {
         const handleRoleBasedRedirect = () => {
             if (status === 'authenticated' && session?.user?.roles) {
-                // Get the first role from the user's roles array
-                const primaryRole = session.user.roles[2];
-                
-                // Get the redirect path from the map, default to dashboard if role not found
-                const redirectPath = roleRedirectMap[primaryRole] || '/user';
-                
+                const primaryRole = session.user.roles[2];                
+                const redirectPath = roleRedirectMap[primaryRole] || '/user';                
                 router.push(redirectPath);
             } else if (status === 'unauthenticated') {
-                // Redirect to login if user is not authenticated
                 router.push('/login');
             }
         };
